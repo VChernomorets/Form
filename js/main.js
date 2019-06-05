@@ -11,10 +11,10 @@ let email = document.getElementById('email');
  checkEmail = () => {
     let regexp = new RegExp("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
     if(!regexp.test(email.value)){
-        email.style.borderBottom = "2px solid red";
+        email.classList.add("error");
         emailFlag = false;
     } else {
-        email.style.borderBottom = "2px solid #d3bb89";
+        email.classList.remove("error");
         emailFlag = true;
     }
 };
@@ -38,10 +38,10 @@ password = document.getElementById('password');
  */
 checkPassword = () => {
     if(password.value.length < 8){
-        password.style.borderBottom = "2px solid red";
+        email.classList.add("error");
         passwordFlag = false;
     } else {
-        password.style.borderBottom = "2px solid #d3bb89";
+        email.classList.remove("error");
         passwordFlag = true;
     }
 };
@@ -69,10 +69,10 @@ registrationSave.addEventListener('click', () => {
        document.getElementsByClassName("aboutMe")[0].style.display = "block";
    } else {
        if(!emailFlag){
-           email.style.borderBottom = "2px solid red";
+           email.classList.add("error");
        }
        if (!passwordFlag) {
-           password.style.borderBottom = "2px solid red";
+           email.classList.remove("error");
        }
    }
 });
@@ -83,10 +83,10 @@ let username = document.getElementById('username');
  */
 username.addEventListener('blur', () => {
    if(username.value.length === 0){
-       username.style.borderBottom = "2px solid red";
+       email.classList.add("error");
        usernameFlag = false;
    } else {
-       username.style.borderBottom = "2px solid #d3bb89";
+       email.classList.remove("error");
        usernameFlag = true;
    }
 });
@@ -98,10 +98,10 @@ let selectLocation = document.getElementById('location');
 selectLocation.onchange = () => {
     let option = selectLocation.querySelectorAll('option')[selectLocation.selectedIndex];
     if(option.getAttribute('value') === ""){
-        selectLocation.style.borderBottom = "2px solid red";
+        email.classList.add("error");
         locationFlag = false;
     } else {
-        selectLocation.style.borderBottom = "2px solid #d3bb89";
+        email.classList.remove("error");
         locationFlag = true;
     }
 };
@@ -116,10 +116,10 @@ saveAboutMe.addEventListener('click', () =>{
        console.log("The form is ready to be sent!");
    } else {
        if(!usernameFlag){
-           username.style.borderBottom = "2px solid red";
+           email.classList.add("error");
        }
        if(!locationFlag){
-           selectLocation.style.borderBottom = "2px solid red";
+           email.classList.remove("error");
        }
    }
 });

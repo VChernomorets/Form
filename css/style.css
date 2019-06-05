@@ -51,7 +51,7 @@ section {
     font-family: 'Open Sans', sans-serif;
 }
 
-.aboutMe{
+.aboutMe {
     display: none;
 }
 
@@ -166,4 +166,20 @@ section {
     content: "\2714";
     color: #d3bb89;
     background: none;
+}
+
+.error {
+    border-bottom: 2px solid red;
+}
+
+@-webkit-keyframes autofill {
+    to {
+        color: white;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
 }
