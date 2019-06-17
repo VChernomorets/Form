@@ -51,7 +51,7 @@ section {
     font-family: 'Open Sans', sans-serif;
 }
 
-.aboutMe {
+#aboutMe {
     display: none;
 }
 
@@ -75,7 +75,7 @@ section {
 
 .aboutMeForm__text {
     padding-bottom: 10px;
-    margin: 20px 0 20px 0;
+    margin: 10px 0 10px 0;
     width: 100%;
     background: none;
     border: none;
@@ -155,7 +155,6 @@ section {
     vertical-align: middle;
     margin-left: -10px;
     margin-right: 10px;
-    border-radius: 4px;
     margin-bottom: 4px;
     transition: .2s;
 }
