@@ -14,10 +14,10 @@ const minPassSize = 8;
 checkEmail = () => {
     const regexp = new RegExp("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
     if (!regexp.test(email.value)) {
-        email.classList.add("error");
+        email.classList.add('error');
         emailFlag = false;
     } else {
-        email.classList.remove("error");
+        email.classList.remove('error');
         emailFlag = true;
     }
 };
@@ -41,10 +41,10 @@ password = document.getElementById('password');
  */
 checkPassword = () => {
     if (password.value.length < minPassSize) {
-        password.classList.add("error");
+        password.classList.add('error');
         passwordFlag = false;
     } else {
-        password.classList.remove("error");
+        password.classList.remove('error');
         passwordFlag = true;
     }
 };
@@ -68,14 +68,14 @@ const registrationSave = document.getElementById('registrationSave');
  */
 registrationSave.addEventListener('click', () => {
     if (emailFlag && passwordFlag) {
-        document.getElementById("registrationForm").style.display = "none";
-        document.getElementById("aboutMe").style.display = "block";
+        document.getElementById('registrationForm').classList.remove('visible');
+        document.getElementById('aboutMe').classList.add('visible');
     } else {
         if (!emailFlag) {
-            email.classList.add("error");
+            email.classList.add('error');
         }
         if (!passwordFlag) {
-            email.classList.remove("error");
+            email.classList.remove('error');
         }
     }
 });
@@ -86,10 +86,10 @@ const username = document.getElementById('username');
  */
 username.addEventListener('blur', () => {
     if (username.value.length === 0) {
-        email.classList.add("error");
+        email.classList.add('error');
         usernameFlag = false;
     } else {
-        email.classList.remove("error");
+        email.classList.remove('error');
         usernameFlag = true;
     }
 });
@@ -101,10 +101,10 @@ const selectLocation = document.getElementById('location');
 selectLocation.onchange = () => {
     const option = selectLocation.querySelectorAll('option')[selectLocation.selectedIndex];
     if (option.getAttribute('value') === "") {
-        email.classList.add("error");
+        email.classList.add('error');
         locationFlag = false;
     } else {
-        email.classList.remove("error");
+        email.classList.remove('error');
         locationFlag = true;
     }
 };
@@ -116,20 +116,20 @@ const saveAboutMe = document.getElementById('saveAboutMe');
  */
 saveAboutMe.addEventListener('click', () => {
     if (usernameFlag && locationFlag) {
-        console.log("The form is ready to be sent!");
+        console.log('The form is ready to be sent!');
     } else {
         if (!usernameFlag) {
-            email.classList.add("error");
+            email.classList.add('error');
         }
         if (!locationFlag) {
-            email.classList.remove("error");
+            email.classList.remove('error');
         }
     }
 });
 
 
 
-let locations = ["Arryn", "Baratheon", "Bronn", "Greyjoy", "Lannister", "Martell", "Tully"];
+const locations = ['Arryn', 'Baratheon', 'Bronn', 'Greyjoy', 'Lannister', 'Martell', 'Tully'];
 
 $(document).ready(function () {
 
@@ -144,17 +144,16 @@ $(document).ready(function () {
 
     // fill slider and select
     for(let i = 0; i < locations.length; i++){
-        let $img = $("<img>").addClass("slider__Item").attr("src", `images/${locations[i]}.png`).attr("alt", locations[i]);
-        let newOption = new Option(locations[i], locations[i], false, false);
+        const $img = $('<img>').addClass('slider__Item').attr('src', `images/${locations[i]}.png`).attr('alt', locations[i]);
+        const newOption = new Option(locations[i], locations[i], false, false);
         $('.slider').slick('slickAdd', $('<div></div>').append($img));
         $('#location').append(newOption).trigger('change');
     }
 
     // We process selection on select
-    $("#location").change(function () {
+    $('#location').change(function () {
         if($('#location').val()){
             $('.slider').slick('slickGoTo', locations.indexOf($('#location :selected').val()));
         }
     });
 });
-
