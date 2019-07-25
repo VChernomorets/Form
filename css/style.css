@@ -57,7 +57,7 @@ section {
 }
 
 .aboutMeSection {
-    display: none;
+
 }
 
 .form__registration {
@@ -235,4 +235,8 @@ input:-webkit-autofill {
 
 .visible {
     display: block;
+}
+
+.errorMessage {
+    color: #c0392b;
 }
