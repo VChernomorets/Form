@@ -1,4 +1,4 @@
-<form class="form form__registration visible" id="registrationForm" action="../handler.php" method="post">
+<form class="form form__registration visible" id="registrationForm" action="handler.php" method="post">
     <label class="aboutMeForm__question" for="email">
         Enter your email
     </label>

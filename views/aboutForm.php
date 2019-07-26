@@ -3,7 +3,7 @@
         You've successfully joined the game.<br>
         Tell us more about yourself.
     </p>
-    <form class="form" action="../handler.php" method="post">
+    <form class="form" action="handler.php" method="post">
         <label class="aboutMeForm__question" for="username">
             Who are you?
             <span class="aboutMeForm__hint">Alpha-numeric username</span>

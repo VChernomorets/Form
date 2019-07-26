@@ -37,7 +37,6 @@ function aboutMeForm($args){
 
 // Write user to file
 function writeAccount(){
-    print_r($_SESSION);
     global $inputs;
     $fileName = ACCOUNT_FILE_PATH . $_SESSION['mail'] . ACCOUNT_FILE_EXTENSION;
     $date = [];
