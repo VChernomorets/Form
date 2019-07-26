@@ -4,7 +4,6 @@ $(document).ready(function () {
     inputs.push({name: '#password', pattern: new RegExp("^.{8,}$")});
     inputs.push({name: '#username', pattern: new RegExp("^.{3,}$")});
     inputs.push({name: '#about-myself', pattern: new RegExp("^.{5,}$")});
-    inputs.push({name: '#location', pattern: new RegExp("^.{2,}$")});
 
     inputs.forEach(function (item) {
         $(item.name).one('blur',function () {
