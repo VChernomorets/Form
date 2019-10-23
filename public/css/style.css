@@ -1,0 +1,246 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: "Game Of Thrones";
+    src: url("../fonts/Game of Thrones.ttf");
+}
+
+section {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.left-content {
+    width: 50%;
+    height: 100%;
+    background-image: url("../images/wfSLtnqg.jpeg");
+    background-size: cover;
+    background-position: center center;
+}
+
+.slider__Item {
+    float: right;
+    padding: 10px;
+}
+
+.right-content {
+    width: 30%;
+    height: 100%;
+    background-image: url("../images/rSfseE6k.png");
+    padding: 0 10%;
+}
+
+.right-content__head {
+    color: #d3bb89;
+    text-align: center;
+    padding: 40px 0;
+    font-family: "Game Of Thrones", serif;
+    font-weight: normal;
+    font-size: 30px;
+}
+
+.alert {
+    padding-left: 15px;
+    border-left: 2px solid #d3bb89;
+    color: #fef8eb;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.aboutMeSection {
+
+}
+
+.form__registration {
+    display: none;
+}
+
+.form {
+    padding: 30px 0;
+}
+
+.aboutMeForm__question {
+    color: #d3bb89;
+    font-size: 22px;
+    font-family: 'EB Garamond', serif;
+}
+
+.aboutMeForm__hint {
+    display: block;
+    color: #fef8eb;
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+.aboutMeForm__text {
+    padding-bottom: 10px;
+    margin: 10px 0;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #d3bb89;
+    font-size: 20px;
+    color: #fef8eb;
+    outline: none;
+}
+
+
+.aboutMeForm__location {
+    width: 100%;
+}
+
+.aboutMeForm__location:hover {
+    cursor: pointer;
+}
+
+.aboutMeForm__location option {
+    background-color: #202020;
+}
+
+.select2-container--default .select2-selection--single {
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: normal;
+    padding-left: 0;
+    padding-bottom: 7px;
+    border-bottom: 2px solid #d3bb89;
+}
+
+.select2-search__field {
+    background: none;
+    outline: none;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: none;
+    border-bottom: 1px solid #d3bb89;
+    color: white;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #d3bb89;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #d3bb89;
+}
+
+.select2-dropdown {
+    background-color: #202020;
+    border: none;
+    color: white;
+}
+
+.select2-selection .select2-selection--single {
+    padding-bottom: 10px;
+}
+
+.select2-container {
+    display: block;
+    padding-bottom: 10px;
+    margin: 10px 0;
+}
+
+.aboutMeForm__aboutMyself {
+    margin-top: 20px;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #d3bb89;
+    outline: none;
+    color: #fef8eb;
+    font-size: 20px;
+    resize: none;
+    font-family: sans-serif, open;
+}
+
+.aboutMeForm__submitSave {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: #c19a49;
+    font-size: 20px;
+    color: #fef8eb;
+]
+}
+
+.aboutMeForm__submitSave {
+    cursor: pointer;
+}
+
+.aboutMeForm__remember {
+    display: none;
+}
+
+.aboutMeForm__remember + label {
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+.aboutMeForm__remember + label:before {
+    content: " ";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #d3bb89;
+    border: 2px solid #d3bb89;
+    vertical-align: middle;
+    margin-left: -10px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    transition: .2s;
+}
+
+.aboutMeForm__remember:checked + label:before {
+    font-size: 14px;
+    text-align: center;
+    content: "\2714";
+    color: #d3bb89;
+    background: none;
+}
+
+.error {
+    border-bottom: 2px solid red;
+}
+
+@-webkit-keyframes autofill {
+    to {
+        color: white;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+.visible {
+    display: block;
+}
+
+.errorMessage {
+    color: #c0392b;
+}
+
+#location__error, #about-myself__error, #username__error{
+    display: none;
+}

@@ -2,83 +2,108 @@
 session_start();
 
 // Name of input and verification
-$inputs = ['registration' => [], 'aboutMe' => []];
-array_push($inputs['registration'], ['name' => 'mail', 'pattern' => '/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/']);
-array_push($inputs['registration'], ['name' => 'password', 'pattern' => '/^.{8,}$/']);
-array_push($inputs['aboutMe'], ['name' => 'username', 'pattern' => '/^.{3,}$/']);
-array_push($inputs['aboutMe'], ['name' => 'about-myself', 'pattern' => '/^.{5,}$/']);
-array_push($inputs['aboutMe'], ['name' => 'location', 'pattern' => '/^.{2,}$/']);
-
+$inputs = ['registration' => [
+    ['name' => 'mail', 'pattern' => '/^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/'],
+    ['name' => 'password', 'pattern' => '/^.{8,}$/']
+], 'aboutMe' => [
+    ['name' => 'username', 'pattern' => '/^.{3,}$/'],
+    ['name' => 'about-myself', 'pattern' => '/^.{5,}$/'],
+    ['name' => 'location', 'pattern' => '/^.{2,}$/']
+]];
 
 /** We check every input. If the mail and password fields are valid, print the second form.
  * If the second form is valid, write the user information to the file.
  * @param $args list of parameters with their values.
  */
-function formValidation($args){
-    if(isset($args['registrationSave'])){
-        registrationForm($args);
+function formValidation($args, $config)
+{
+    if (isset($args['registrationSave'])) {
+        registrationForm($args, $config);
     }
     if (isset($args['aboutMeSave'])) {
-        aboutMeForm($args);
+        aboutMeForm($args, $config);
     }
 }
 
-// Check on the validation form about yourself
-function aboutMeForm($args){
+//We check the sending form about ourselves, if everything is correct, add the information to the file.
+function aboutMeForm($args, $config)
+{
     global $inputs;
     $_SESSION['aboutMeForm'] = true;
-    if(checkInputs($args, $inputs['aboutMe'])){
+    if (checkInputs($args, $inputs['aboutMe'])) {
         unset($_SESSION['flags']);
         unset($_SESSION['aboutMeForm']);
-        writeAccount();
+        editAccount($config, $args);
         session_destroy();
+    } else {
+        echo json_encode($_SESSION['flags']);
     }
+}
+
+// Add information to the file.
+function editAccount($config, $args)
+{
+    $fileName = $config['ACCOUNT_FILE_PATH'] . $_SESSION['mail'] . $config['ACCOUNT_FILE_EXTENSION'];
+    if (!file_exists($fileName)) {
+        echo json_encode('Error: No account');
+        return;
+    }
+    $account = json_decode(file_get_contents($fileName), true);
+    global $inputs;
+    foreach ($inputs['aboutMe'] as $input) {
+        $account[$input['name']] = $args[$input['name']] ?? null;
+    }
+    $file = fopen($fileName, 'w');
+    if ($account != null) {
+        fwrite($file, json_encode($account));
+    }
+    fclose($file);
+    echo json_encode(true);
 }
 
 // Write user to file
-function writeAccount(){
+function createAccount($config, $args)
+{
     global $inputs;
-    $fileName = ACCOUNT_FILE_PATH . $_SESSION['mail'] . ACCOUNT_FILE_EXTENSION;
-    $date = [];
-    foreach ($inputs as $formName){
-        foreach ($formName as $input){
-            array_push($date, [$input['name'] => $_SESSION[$input['name']]]);
+    $fileName = $config['ACCOUNT_FILE_PATH'] . $args['mail'] . $config['ACCOUNT_FILE_EXTENSION'];
+    $data = [];
+    foreach ($inputs as $formName) {
+        foreach ($formName as $input) {
+            $data[$input['name']] = $args[$input['name']] ?? null;
         }
     }
-    array_push($date, ['remember' => $_SESSION['remember']]);
+    $data['remember'] = $args['remember'] ?? false;
     $file = fopen($fileName, 'w');
-    fwrite($file, json_encode($date));
+    fwrite($file, json_encode($data));
     fclose($file);
 }
 
 // registration form processing
-function registrationForm($args){
+function registrationForm($args, $config)
+{
     global $inputs;
-    if(checkInputs($args, $inputs['registration'])){
-        if(file_exists(ACCOUNT_FILE_PATH . $_SESSION['mail'] . ACCOUNT_FILE_EXTENSION)){
+    if (checkInputs($args, $inputs['registration'])) {
+        $_SESSION['mail'] = $args['mail'];
+        if (file_exists($config['ACCOUNT_FILE_PATH'] . $_SESSION['mail'] . $config['ACCOUNT_FILE_EXTENSION'])) {
             $_SESSION['flags']['accountExists'] = false;
         } else {
+            createAccount($config, $args);
             $_SESSION['aboutMeForm'] = true;
-            $_SESSION['remember'] = $args['remember'] ?? false;
         }
     }
+    header("Location: index.php");
 }
 
 // Check list inputs
-function checkInputs($args, $inputs){
+function checkInputs($args, $inputs)
+{
     $result = true;
-    foreach ($inputs as $input){
+    foreach ($inputs as $input) {
         $name = $input['name'];
-        $_SESSION['flags'][$name] = isset($args[$name]) ? check($args[$name], $input['pattern']) : false;
-        if($_SESSION['flags'][$name]){
-            $_SESSION[$name] = $args[$name];
-        } else {
+        $_SESSION['flags'][$name] = isset($args[$name]) ? preg_match($input['pattern'], $args[$name]) : false;
+        if (!$_SESSION['flags'][$name]) {
             $result = false;
         }
     }
     return $result;
-}
-
-function check($value, $pattern){
-    return preg_match($pattern, $value);
 }
